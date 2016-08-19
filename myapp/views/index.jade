@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    .container
+        table.table#changePage
+            thead
+                tr
+                    th 标题
+                    th 内容
+                    th 时间
+            tbody
+                tr
+                    td.showTitle.nowrap
+                        a(style="cursor: pointer;")
+                    td.showContent.nowrap
+                    td
+

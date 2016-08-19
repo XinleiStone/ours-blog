@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/jquery.dataTables.css')
+
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/jquery.dataTables.js')
+  body
+    nav.navbar.navbar-default.navbar-inverse
+        .container
+            .navbar-header
+                a.navbar-brand.navbar-brand-self(href='/')
+                    img(src='/images/favicon.ico')
+            .collapse.navbar-collapse#bs-example-navbar-collapse-1
+                ul.nav.navbar-nav
+                    li.active
+                        a(href='/') 我的记事本
+                            span.sr-sonly
+                    li
+                        a(href='/#/addnote') 写文章
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href="/#/addnote")#addNote 写文章
+                    li
+                        a(href="/secure/logout")#logout 登出
+    #layout-content
+    block content
+    <div pager="service"></div>
+    

@@ -1,0 +1,79 @@
+body,ul,li{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.nowrap{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.showContent{
+    max-width:200px;
+}
+.showTitle{
+    max-width:100px;
+}
+.noteContent{
+    background-color:#fff;
+    border:none;
+    font-size:14px;
+    min-height:300px;
+}
+#content{
+    min-height:300px;
+}
+.userLogin{
+    text-align:center;
+}
+#user,#pwd,#pwdSure{
+    text-align:center;
+    padding:5px;
+}
+/*#pwdSure{
+    margin-left:-28px;
+}*/
+.modal-footer{
+    text-align:center;
+}
+.login{
+    width:100px;
+}
+.modal-dialog{
+    width:350px;
+}
+.input-in{
+    height:30px;
+    border-radius:5px;
+    border:1px solid #bbb;
+    padding: 5px;
+}
+.input-remember{
+    margin-top:5px;
+    padding-left:100px;
+    font-size:12px;
+}
+.remember{
+    margin-right:5px;
+}
+.forget{
+    margin-left:10px;
+    cursor:pointer;
+}
+.error{
+    font-size:12px;
+    color:#f00;
+    margin-top:5px;
+    display:inline-block;
+    margin-left:100px;
+}
+#addNote:hover,#logout:hover{
+    background:rgba(0,0,0,.075);
+}
+.loading {
+    font-size: 14px;
+}
+.navbar-brand-self {
+    border-radius:50px;
+    margin-top:-5px;
+}
