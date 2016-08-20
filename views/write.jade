@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .container
+        div
+            .form-group
+                label(for="title") 标题 
+                    input.form-control#title(type="text", name="title", placeholder="标题")
+            .form-group
+                label(for="content") 内容
+                textarea.form-control#content(type="textarea", name="content", placeholder="内容")
+            button.btn.btn-default(onclick="addNote()") 提交
+    script.
+        function addNote() {
+            $.ajax({
+                url: '/addNote',
+                type: 'POST',
+                data: {title: $('#title').val(), content: $('#content').val()},
+                success: function(data) {
+                    window.location = "/";
+                },
+                error: function(err) {
+                    alert("error");
+                }
+            })
+        }

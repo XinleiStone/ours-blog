@@ -1,0 +1,132 @@
+// 实现与MySQL交互
+var mysql = require('mysql');
+var $conf = require('../config/config');
+/*var $util = require('../util/util');*/
+var $sql = require('./notesMapping');
+
+
+// 使用连接池，提升性能
+var pool = mysql.createPool({
+    host: $conf.connection.host,
+    user: $conf.connection.user,
+    password: $conf.connection.password,
+    database: $conf.database,
+    port: $conf.port
+});
+
+// 向前台返回JSON方法的简单封装
+var jsonWrite = function(res, ret) {
+    if (typeof ret === 'undefined') {
+        res.json({
+            code: '1',
+            msg: '操作失败'
+        });
+    } else {
+        res.json(ret);
+    }
+};
+
+module.exports = {
+    add: function(req, res, next) {
+        pool.getConnection(function(err, connection) {
+            // 获取前台页面传过来的参数
+            var param = req.body;
+            var now = new Date().getTime();
+
+            // 建立连接，向表中插入值
+            connection.query($sql.insert, [param.content, now, param.title, req.user.id], function(err, result) {
+                if (result) {
+                    // 释放连接 
+                    connection.release();
+                    next();
+                } else {
+                    // 释放连接 
+                    connection.release();
+                    next("error");
+                }
+            });
+        });
+    },
+    getNotesList: function(req, res, next) {
+        pool.getConnection(function(err, connection) {
+            // 获取前台页面传过来的参数
+            var param = req.query || req.params;
+
+            // 建立连接，获取相应userid的notes
+            connection.query($sql.queryByUserId, [req.user.id], function(err, result) {
+                if (result) {
+                    req.resultData = result;
+                    // 释放连接 
+                    connection.release();
+                    return next();
+                } else {
+                    // 释放连接 
+                    connection.release();
+                    return next("error");
+                }
+                // res.redirect('/');
+                
+            });
+        });
+    },
+    display: function(req, res, next) {
+        pool.getConnection(function(err, connection) {
+            // 获取前台页面传过来的参数
+            var param = req.query || req.params;
+
+            // 建立连接，获取相应userid的notes
+            connection.query($sql.queryByNoteId, parseInt(param.id), function(err, result) {
+                if (result) {
+                    req.resultData = result;
+                    // 释放连接 
+                    connection.release();
+                    return next();
+                } else {
+                    // 释放连接 
+                    connection.release();
+                    return next("error");
+                }
+                // res.redirect('/');
+                
+            });
+        });
+    },
+    modify: function(req, res, next) {
+        pool.getConnection(function(err, connection) {
+            // 获取前台页面传过来的参数
+            var param = req.body;
+
+            var now = new Date().getTime();
+
+            // 建立连接，获取相应userid的notes
+            connection.query($sql.update, [param.content, now, param.title, req.user.id, param.id], function(err, result) {
+                if (!err) {
+                    // 释放连接 
+                    connection.release();
+                    return next();
+                } else {
+                    // 释放连接 
+                    connection.release();
+                    return next("error");
+                }
+            });
+        });
+    },
+    delete: function(req, res, next) {
+        pool.getConnection(function(err, connection) {
+            // 获取前台页面传过来的参数
+            var param = req.query || req.params;
+
+            // 建立连接，获取相应userid的notes
+            connection.query($sql.delete, param.id, function(err, result) {
+                if (!err) {
+                    connection.release();
+                    return next();
+                } else {
+                    connection.release();
+                    return next("error");
+                }
+            });
+        });
+    }
+};

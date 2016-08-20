@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .container
+        .form-group
+            label(for="title") 标题 
+                input.form-control#title(type="text", value=datas[0].title, placeholder="标题")
+        .form-group
+            label(for="content") 内容 
+            textarea.form-control#content(type="password", name="content", placeholder="内容")= datas[0].content
+        button.btn.btn-default(onclick="submit();") 提交修改
+    script.
+        function submit() {
+            $.ajax({
+                url: '/modifyNote',
+                type: 'POST',
+                data: {title: $('#title').val(), content: $('#content').val(), id: #{datas[0].id}},
+                success: function(data) {
+                    window.location = "/display?id=" + #{datas[0].id} + "";
+                },
+                error: function(err) {
+                    alert("error");
+                }
+            })
+        }

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .container
+        table.table#changePage
+            thead
+                tr
+                    th 标题
+                    th 内容
+                    th 时间
+            tbody
+                for d in datas
+                    tr
+                        td
+                            a(href="/display?id=" + d.id + "")= d.title
+                        td= d.content
+                        td= d.time
+
+        
+                

@@ -1,0 +1,40 @@
+extends layout
+
+block content
+    .container
+        .panel.panel-default
+            .panel-heading 标题
+            .panel-body= datas[0].title
+        .panel.panel-default
+            pre.panel-heading 内容
+            pre.panel-body.noteContent= datas[0].content
+        button.btn.btn-default(onclick="modifyNote();") 修改
+        &nbsp;&nbsp;
+        button.btn.btn-default(onclick="deleteNote();") 删除
+    script.
+        function modifyNote() {
+            $.ajax({
+                url: '/modify',
+                type: 'GET',
+                data: {id: #{datas[0].id}},
+                success: function(data) {
+                    document.write(data);
+                }
+            })
+        }
+        function deleteNote() {
+            var confirm = window.confirm("确定要删除此条笔记吗？");
+            if (confirm) {
+                $.ajax({
+                    url: '/delete',
+                    type: 'GET',
+                    data: {id: #{datas[0].id}},
+                    success: function(data) {
+                        //document.write(data);
+                        window.location.href = "/";
+                    }
+                })
+            }
+            
+        }
+        
