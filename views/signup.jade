@@ -1,0 +1,70 @@
+doctype html
+html
+    head
+        title 注册
+        link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='stylesheets/jquery.dataTables.css')
+        link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/login.css')
+
+        script(src='javascripts/jquery.js')
+    body
+        .top_signup
+        .wrap
+            form(target="/signup", method="POST")
+                div(style="width: 165px; height: 96px; position: absolute;")
+                    .tou
+                    .left_hand#left_hand
+                    .right_hand#right_hand
+                p#username-field(style="padding: 30px 0px 10px; position: relative;")
+                    span.u_logo   
+                    input.ipt(type="text" placeholder="请输入用户名", name="username", id="username")
+                p#password-field(style="position: relative;")
+                    span.p_logo      
+                    input.ipt#password(type="password", placeholder="请输入密码", name="password")
+                p.errorWarn 该用户名已被注册
+                .forget
+                    p#signin-field
+                        input.btn.btn-primary#signin(type="submit" value="注册")
+                .login-back(style="margin-top: 20px;") 已有账户？请 <a href='/login'>登录</a>
+        .container
+            h1.introduce Notes and Fun!
+        script.
+            $(function() {
+                $("#username").blur(function() {
+                    if ($(this).val() != "") {
+                        $("#left_hand").animate({
+                            left: "100px",
+                            top: "-12px"
+                        }, {step: function(){
+                            if (parseInt($("#left_hand").css("left")) < 110) {
+                                $("#left_hand").attr("class","signup_left_hand");
+                            }
+                        }}, 2000);
+                    } else {
+                        $("#left_hand").removeClass().addClass("left_hand").css({
+                            "left": "150px",
+                            "top": "-38px"
+                        });
+                    }
+                });
+                
+                $("#password").blur(function() {
+                    if ($(this).val() != "") {
+                        $("#right_hand").animate({
+                            "right": "-112",
+                            "top": "-12"
+                        }, {step: function(){
+                            if (parseInt($("#right_hand").css("right")) < -110) {
+                                $("#right_hand").attr("class","signup_right_hand");
+                            }
+                        }}, 2000);
+                    } else {
+                        $("#right_hand").removeClass().addClass("right_hand").css({
+                            "right": "-64px",
+                            "top": "-38px"
+                        });
+                    }
+                });
+            })
+            

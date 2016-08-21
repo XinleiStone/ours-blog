@@ -1,20 +1,53 @@
 extends layout
 
 block content
-    .container
-        table.table#changePage
+    .container#container
+        table.table.table-striped#changePage
             thead
                 tr
                     th 标题
-                    th 内容
+                    th 内容概览
                     th 时间
             tbody
                 for d in datas
                     tr
-                        td
-                            a(href="/display?id=" + d.id + "")= d.title
-                        td= d.content
+                        td(style="width: 20%;")
+                            a(onclick="display(" + d.id + ");", style="cursor: pointer")= d.title
+                        td= d.content.slice(0, 50)
                         td= d.time
+    script.
+        $(function() {
+            var table = $("#changePage").DataTable({
+                "language": {
+                    "lengthMenu": "每页 _MENU_条记录",
+                    "zeroRecords": "你还没有写笔记，赶快点击上方‘写笔记’开始吧！",
+                    "info": "第 _PAGE_ 页(总共 _PAGES_ 页)",
+                    "infoEmpty": "无记录",
+                    "infoFilltered": "(从 _MAX_ 条记录过滤)",
+                    "paginate": {
+                        "next": "下一页",
+                        "previous": "上一页"
+                    },
+                    "search": "搜索"
+                },
+                "searching": true,
+                "ordering": true,
+                "order": [[ 2, 'desc' ]],
+                "lengthChange": false
+            });
 
-        
-                
+        });
+
+        function display(id) {
+            $.ajax({
+                url: '/display',
+                type: 'GET',
+                data: {id: id},
+                success: function(data) {
+                    $("#container").html(data);
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        }

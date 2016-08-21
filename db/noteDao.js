@@ -31,7 +31,16 @@ module.exports = {
         pool.getConnection(function(err, connection) {
             // 获取前台页面传过来的参数
             var param = req.body;
-            var now = new Date().getTime();
+
+            var date = new Date();
+            var year = date.getFullYear(); //获取当前年份
+            var mon = date.getMonth() + 1; //获取当前月份
+            var da = date.getDate(); //获取当前日
+            var h = date.getHours(); //获取小时
+            var m = date.getMinutes(); //获取分钟
+            var s = date.getSeconds(); //获取秒
+
+            var now = year + "-" + mon + "-" + da + "-" + h + ":" + m + ":" + s;
 
             // 建立连接，向表中插入值
             connection.query($sql.insert, [param.content, now, param.title, req.user.id], function(err, result) {
@@ -65,7 +74,7 @@ module.exports = {
                     return next("error");
                 }
                 // res.redirect('/');
-                
+
             });
         });
     },
@@ -73,9 +82,12 @@ module.exports = {
         pool.getConnection(function(err, connection) {
             // 获取前台页面传过来的参数
             var param = req.query || req.params;
+            if (!param.id) {
+                param.id = req.body.id;
+            }
 
             // 建立连接，获取相应userid的notes
-            connection.query($sql.queryByNoteId, parseInt(param.id), function(err, result) {
+            connection.query($sql.queryByNoteId, param.id, function(err, result) {
                 if (result) {
                     req.resultData = result;
                     // 释放连接 
@@ -87,7 +99,7 @@ module.exports = {
                     return next("error");
                 }
                 // res.redirect('/');
-                
+
             });
         });
     },
@@ -96,7 +108,15 @@ module.exports = {
             // 获取前台页面传过来的参数
             var param = req.body;
 
-            var now = new Date().getTime();
+            var date = new Date();
+            var year = date.getFullYear(); //获取当前年份
+            var mon = date.getMonth() + 1; //获取当前月份
+            var da = date.getDate(); //获取当前日
+            var h = date.getHours(); //获取小时
+            var m = date.getMinutes(); //获取分钟
+            var s = date.getSeconds(); //获取秒
+
+            var now = year + "-" + mon + "-" + da + "-" + h + ":" + m + ":" + s;
 
             // 建立连接，获取相应userid的notes
             connection.query($sql.update, [param.content, now, param.title, req.user.id, param.id], function(err, result) {

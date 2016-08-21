@@ -8,8 +8,13 @@ body{
 .position-relative {
 	position: relative;
 }
-.top_div{
+.top_signup{
 	background: #008ead;
+	width: 100%;
+	height: 300px;
+}
+.top_login{
+	background: #448c44;
 	width: 100%;
 	height: 300px;
 }
@@ -73,7 +78,7 @@ a{
 	top: -38px;
 	right: -64px;
 }
-.initial_left_hand{
+.signup_left_hand{
 	background: url("../images/hand.png") no-repeat;
 	width: 30px;
 	height: 20px;
@@ -81,7 +86,23 @@ a{
 	top: -12px;
 	left: 100px;
 }
-.initial_right_hand{
+.signup_right_hand{
+	background: url("../images/hand.png") no-repeat;
+	width: 30px;
+	height: 20px;
+	position: absolute;
+	top: -12px;
+	right: -112px;
+}
+.login_left_hand{
+	background: url("../images/hand.png") no-repeat;
+	width: 30px;
+	height: 20px;
+	position: absolute;
+	top: -12px;
+	left: 100px;
+}
+.login_right_hand{
 	background: url("../images/hand.png") no-repeat;
 	width: 30px;
 	height: 20px;
@@ -154,9 +175,8 @@ a{
 	background:rgb(0, 142, 173);
 }
 #signin{
-	background:rgb(0, 142, 173);
 	color:#fff;
-	width:89%;
+	width:87%;
 	margin:10px auto;
 	
 }

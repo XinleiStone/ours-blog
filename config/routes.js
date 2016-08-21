@@ -42,14 +42,14 @@ module.exports = function(app, passport) {
 	// show the signup form
 	app.get('/signup', function(req, res) {
 		// render the page and pass in any flash data if it exists
-		res.render('signup.ejs', {
+		res.render('signup', {
 			message: req.flash('signupMessage')
 		});
 	});
 
 	// process the signup form
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/profile', 	// redirect to the secure profile section
+		successRedirect: '/', 			// redirect to the secure index section
 		failureRedirect: '/signup', 	// redirect back to the signup page if there is an error
 		failureFlash: true 				// allow flash messages
 	}));
@@ -95,8 +95,9 @@ module.exports = function(app, passport) {
 		res.render("modify.jade", {datas: data});
 	});
 
-	app.post('/modifyNote', isLoggedIn, note.modify, function(req, res, next) {
-		res.redirect("/");
+	app.post('/modifyNote', isLoggedIn, note.modify, note.display, function(req, res, next) {
+		var data = req.resultData;
+		res.render("display", {datas: data});
 	});
 
 	app.get('/delete', isLoggedIn, note.delete, function(req, res, next) {

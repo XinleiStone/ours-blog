@@ -1,11 +1,11 @@
-
+// config/database.js
 module.exports = {
     'connection': {
-        host: 'host', 
-        user: 'user',
-        password: 'password',
+        host: '123.206.71.16', 
+        user: 'root',
+        password: '3839365089A',
     },
-	'database': 'mydatabase',
+	'database': 'my_schema',
     'users_table': 'users',
     'notes_table': 'notes',
     'port': '3306'

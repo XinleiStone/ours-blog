@@ -16,11 +16,11 @@ html
                         img(src='images/favicon.ico')
                 .collapse.navbar-collapse#bs-example-navbar-collapse-1
                     ul.nav.navbar-nav
-                        li.active
+                        li#mynote.active
                             a(href='/') 我的记事本
                                 span.sr-sonly
-                        li
-                            a(href='/write') 写文章
+                        li#writenote
+                            a(href='/write') 写笔记
                     ul.nav.navbar-nav.navbar-right
                         li
                             a(href="/logout")#logout 登出
