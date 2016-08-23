@@ -1,20 +1,15 @@
 # Ours-Blog
-一个node-express页面应用，较为简单朴素，但是基本功能都有。express框架，jade模板，mysql数据库，passport验证登录注册。
+一个node-express页面应用，较为简单朴素，但是基本功能都有。<br/>
+express框架，jade模板，mysql数据库，passport验证登录注册。
 <br>
 
 <h3>使用方法（Usage）：</h3>
-  <pre>div2img(options);</pre>
-  <p>方法返回一个转换之后的canvas的DOM对象，故也可以声明一个变量来接收该对象：</p>
-  <pre>var canvas = div2img(options);</pre>
-  <p>其中options为配置选项对象，定义如下。</p>
-<h3>配置项（Options）：</h3>
-  <pre>var options = {
-    id: 'divid',              // 页面元素id（container id）
-    name: 'imgName',          // 保存图片的名字（image name）
-    backgroundColor: '#f00',  // 背景颜色，只有在页面元素有透明元素或不能完全覆盖背景时可见(background color)
-    download: true            // 是否下载，默认false不下载(download or not)
-}</pre>
-
-<h3>演示（Demo）</h3>
-  http://liuxinlei.com/works/div2img/demo/
+  <p>1.克隆到本地(Clone this repo):<pre>gitclone git@github.com:XinleiStone/ours-blog.git</pre></p>
+  <p>2.进入目录，安装依赖(Install the package):<pre>npm install</pre></p>
+  <p>3.配置数据库(Config the database files):<pre>config/config.js</pre></p>
+  <p>4.建库表(Create the database schema):<pre>node db/create_database.js</pre></p>
+  <p>5.启动(Launch):<pre>node app.js</pre></p>
+  <p>6.最后在浏览器中访问即可(Visit in browser):<pre>http://localhost:8080</pre></p>
+<h3>线上体验(Demo)：</h3>
+  http://liuxinlei.com/notes
 
