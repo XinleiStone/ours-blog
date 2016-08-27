@@ -1,12 +1,12 @@
-// config/database.js
+// 数据库配置信息
 module.exports = {
     'connection': {
-        host: '123.206.71.16', 
-        user: 'root',
-        password: '3839365089A',
+        host: 'host',
+        user: 'user',
+        password: 'password',
     },
-	'database': 'my_schema',
-    'users_table': 'users',
-    'notes_table': 'notes',
+    'database': 'database_name',            // 数据库
+    'users_table': 'users_table_name',      // 用户表
+    'notes_table': 'notes_table_name',      // 笔记表
     'port': '3306'
 };
