@@ -1,10 +1,10 @@
-// config/routes.js
+// 路由
 var note = require('../db/noteDao');
 module.exports = function(app, passport) {
 
-	// =====================================
-	// HOME PAGE (with login links) ========
-	// =====================================
+	// ========================================
+	// HOME PAGE (with login and get notes list
+	// ========================================
 	app.get('/', isLoggedIn, note.getNotesList, function(req, res) {
 		var data = req.resultData;
 		res.render('index', { datas: data });
@@ -16,12 +16,10 @@ module.exports = function(app, passport) {
 	// show the login form
 	app.get('/login', function(req, res) {
 
-		console.log("welcome");
-
 		if (req.body.remember) {
-			req.session.cookie.expires = Number.MAX_VALUE;
+			req.session.cookie.maxAge = 3600 * 24;
 		} else {
-			req.session.cookie.expires = Number.MAX_VALUE;
+			req.session.cookie.expires = -1;
 		}
 		// render the page and pass in any flash data if it exists
 		res.render('login.jade', {

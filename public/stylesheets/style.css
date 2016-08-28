@@ -2,7 +2,7 @@ body,ul,li{
     margin:0;
     padding:0;
     list-style:none;
-    font-family: "微软雅黑" !important
+    font-family: "微软雅黑", "Helvetica Neue" !important;
 }
 .nowrap{
     overflow: hidden;
@@ -31,9 +31,7 @@ body,ul,li{
     text-align:center;
     padding:5px;
 }
-/*#pwdSure{
-    margin-left:-28px;
-}*/
+
 .modal-footer{
     text-align:center;
 }
