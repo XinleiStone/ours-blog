@@ -2,18 +2,17 @@
 var note = require('../db/noteDao');
 module.exports = function(app, passport) {
 
-	// ========================================
-	// HOME PAGE (with login and get notes list
-	// ========================================
+	// =====================================
+	// 主页（登录之后列出笔记列表） ========
+	// =====================================
 	app.get('/', isLoggedIn, note.getNotesList, function(req, res) {
 		var data = req.resultData;
 		res.render('index', { datas: data });
 	});
 
 	// =====================================
-	// LOGIN ===============================
+	// 渲染登录页面 ========================
 	// =====================================
-	// show the login form
 	app.get('/login', function(req, res) {
 
 		if (req.body.remember) {
@@ -27,7 +26,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// process the login form
+	// 点击登录按钮
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/', 		// redirect to the secure profile section
 		failureRedirect: '/login', 	// redirect back to the signup page if there is an error
@@ -35,9 +34,8 @@ module.exports = function(app, passport) {
 	}));
 
 	// =====================================
-	// SIGNUP ==============================
+	// 渲染注册页面 ========================
 	// =====================================
-	// show the signup form
 	app.get('/signup', function(req, res) {
 		// render the page and pass in any flash data if it exists
 		res.render('signup', {
@@ -45,7 +43,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// process the signup form
+	// 点击注册之后
 	app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect: '/', 			// redirect to the secure index section
 		failureRedirect: '/signup', 	// redirect back to the signup page if there is an error
@@ -53,51 +51,61 @@ module.exports = function(app, passport) {
 	}));
 
 	// =====================================
-	// PROFILE SECTION =========================
-	// =====================================
-	// we will want this protected so you have to be logged in to visit
-	// we will use route middleware to verify this (the isLoggedIn function)
-	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {
-			user: req.user // get the user out of session and pass to template
-		});
-	});
-
-	// =====================================
-	// LOGOUT ==============================
+	// 登出后跳转到登录页面 ================
 	// =====================================
 	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/login');
 	});
 
+	// =====================================
+	// 添加笔记 ============================
+	// =====================================
 	app.post('/addNote', note.add, function(req, res, next) {
 		res.redirect('/');
 	});
 
+	// =====================================
+	// 获取笔记列表 ========================
+	// =====================================
 	app.get('/notesList', function(req, res, next) {
 		note.getNotesList(req, res, next);
 	});
 
+	// =====================================
+	// 浏览某一条笔记 ======================
+	// =====================================
 	app.get('/display', isLoggedIn, note.display, function(req, res, next) {
 		var data = req.resultData;
 		res.render("display", {datas: data});
 	});
 
+	// =====================================
+	// 写笔记 ==============================
+	// =====================================
 	app.get('/write', isLoggedIn, function(req, res, next) {
 		res.render("write.jade");
 	});
 
+	// =====================================
+	// 渲染修改笔记页面 ====================
+	// =====================================
 	app.get('/modify', isLoggedIn, note.display, function(req, res, next) {
 		var data = req.resultData;
 		res.render("modify.jade", {datas: data});
 	});
 
+	// =====================================
+	// 修改笔记内容 ========================
+	// =====================================
 	app.post('/modifyNote', isLoggedIn, note.modify, note.display, function(req, res, next) {
 		var data = req.resultData;
 		res.render("display", {datas: data});
 	});
 
+	// =====================================
+	// 删除笔记 ============================
+	// =====================================
 	app.get('/delete', isLoggedIn, note.delete, function(req, res, next) {
 		res.redirect("/");
 	});
