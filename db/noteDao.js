@@ -1,9 +1,7 @@
 // 实现与MySQL交互
 var mysql = require('mysql');
 var $conf = require('../config/config');
-/*var $util = require('../util/util');*/
 var $sql = require('./notesMapping');
-
 
 // 使用连接池，提升性能
 var pool = mysql.createPool({
@@ -13,18 +11,6 @@ var pool = mysql.createPool({
     database: $conf.database,
     port: $conf.port
 });
-
-// 向前台返回JSON方法的简单封装
-var jsonWrite = function(res, ret) {
-    if (typeof ret === 'undefined') {
-        res.json({
-            code: '1',
-            msg: '操作失败'
-        });
-    } else {
-        res.json(ret);
-    }
-};
 
 module.exports = {
     add: function(req, res, next) {
@@ -40,7 +26,7 @@ module.exports = {
             var m = date.getMinutes(); //获取分钟
             var s = date.getSeconds(); //获取秒
 
-            var now = year + "-" + mon + "-" + da + "-" + h + ":" + m + ":" + s;
+            var now = year + "-" + mon + "-" + da + " " + h + ":" + m + ":" + s;
 
             // 建立连接，向表中插入值
             connection.query($sql.insert, [param.content, now, param.title, req.user.id], function(err, result) {
@@ -73,7 +59,6 @@ module.exports = {
                     connection.release();
                     return next("error");
                 }
-                // res.redirect('/');
 
             });
         });
@@ -98,7 +83,6 @@ module.exports = {
                     connection.release();
                     return next("error");
                 }
-                // res.redirect('/');
 
             });
         });
@@ -116,7 +100,7 @@ module.exports = {
             var m = date.getMinutes(); //获取分钟
             var s = date.getSeconds(); //获取秒
 
-            var now = year + "-" + mon + "-" + da + "-" + h + ":" + m + ":" + s;
+            var now = year + "-" + mon + "-" + da + " " + h + ":" + m + ":" + s;
 
             // 建立连接，获取相应userid的notes
             connection.query($sql.update, [param.content, now, param.title, req.user.id, param.id], function(err, result) {
