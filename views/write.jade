@@ -1,26 +1,76 @@
-extends layout
+doctype html
+html
+    head
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+        title my-notes-list
+        link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='stylesheets/jquery.dataTables.css')
 
-block content
-    .container
-        div
+        script(src='javascripts/jquery.js')
+        script(src='javascripts/jquery.dataTables.js')
+        script(src='//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    body
+        nav.navbar.navbar-default.navbar-inverse
+            .container
+                .navbar-header
+                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse" data-target="#bs-example-navbar-collapse-1", aria-expanded="false")
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand.navbar-brand-self(href='/')
+                        img(src='images/favicon.ico')
+                .collapse.navbar-collapse#bs-example-navbar-collapse-1
+                    ul.nav.navbar-nav
+                        li#mynote
+                            a(href='/') 我的记事本
+                                span.sr-sonly
+                        li#writenote.active
+                            a(href='/write') 写笔记
+                    ul.nav.navbar-nav.navbar-right
+                        li
+                            a(href="/logout")#logout 登出
+        div.container
             .form-group
                 label(for="title") 标题 
-                    input.form-control#title(type="text", name="title", placeholder="标题")
+                    input.form-control#title(type="text", maxlength="16", name="title", placeholder="最大16个字", oninput="changeText()")
             .form-group
                 label(for="content") 内容
-                textarea.form-control#content(type="textarea", name="content", placeholder="内容")
+                textarea.form-control#content(type="textarea", name="content",maxlength="600", placeholder="最大600个字", oninput="changeText()")
             button.btn.btn-default(onclick="addNote()") 提交
-    script.
-        function addNote() {
-            $.ajax({
-                url: '/addNote',
-                type: 'POST',
-                data: {title: $('#title').val(), content: $('#content').val()},
-                success: function(data) {
-                    window.location = "/";
-                },
-                error: function(err) {
-                    alert("error");
+
+        script.
+            function addNote() {
+                if ($("#title").val() != "" && $("#content").val()) {
+                    $.ajax({
+                        url: '/notes/addNote',
+                        type: 'POST',
+                        data: {title: $('#title').val(), content: $('#content').val()},
+                        success: function(data) {
+                            window.location = "/notes";
+                        },
+                        error: function(err) {
+                            alert("error");
+                        }
+                    })
+                } else {
+                    if ($("#title").val() == "") {
+                        $("#title").css("border-color", "red");
+                    }
+
+                    if ($("#content").val() == "") {
+                        $("#content").css("border-color", "red");
+                    }
                 }
-            })
-        }
+            }
+
+            function changeText() {
+                if ($("#title").val() != "") {
+                    $("#title").css("border-color", "#ccc");
+                }
+
+                if ($("#content").val() != "") {
+                    $("#content").css("border-color", "#ccc");
+                }
+            }
