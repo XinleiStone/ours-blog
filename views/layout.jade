@@ -1,17 +1,24 @@
 doctype html
 html
     head
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
         title my-notes-list
-        link(rel='stylesheet', href='stylesheets/style.css')
-        link(rel='stylesheet', href='stylesheets/bootstrap.css')
-        link(rel='stylesheet', href='stylesheets/jquery.dataTables.css')
+        link(rel='stylesheet', href='notes/stylesheets/style.css')
+        link(rel='stylesheet', href='notes/stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='notes/stylesheets/jquery.dataTables.css')
 
-        script(src='javascripts/jquery.js')
-        script(src='javascripts/jquery.dataTables.js')
+        script(src='notes/javascripts/jquery.js')
+        script(src='notes/javascripts/jquery.dataTables.js')
+        script(src='//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
     body
         nav.navbar.navbar-default.navbar-inverse
             .container
                 .navbar-header
+                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse" data-target="#bs-example-navbar-collapse-1", aria-expanded="false")
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
                     a.navbar-brand.navbar-brand-self(href='/')
                         img(src='images/favicon.ico')
                 .collapse.navbar-collapse#bs-example-navbar-collapse-1
