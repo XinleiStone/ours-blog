@@ -20,7 +20,7 @@ module.exports = function(app, passport) {
 		} else {
 			req.session.cookie.expires = -1;
 		}
-		// render the page and pass in any flash data if it exists
+		// 渲染页面并传递信息
 		res.render('login.jade', {
 			message: req.flash('loginMessage')
 		});
@@ -28,16 +28,16 @@ module.exports = function(app, passport) {
 
 	// 点击登录按钮
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/', 		// redirect to the secure profile section
-		failureRedirect: '/login', 	// redirect back to the signup page if there is an error
-		failureFlash: true 			// allow flash messages
+		successRedirect: '/', 			// 重新定位到主页
+		failureRedirect: '/login', 		// 重新定位到登录页面
+		failureFlash: true 				// 允许传递信息
 	}));
 
 	// =====================================
 	// 渲染注册页面 ========================
 	// =====================================
 	app.get('/signup', function(req, res) {
-		// render the page and pass in any flash data if it exists
+		// 渲染页面并传递信息
 		res.render('signup', {
 			message: req.flash('signupMessage')
 		});
@@ -45,9 +45,9 @@ module.exports = function(app, passport) {
 
 	// 点击注册之后
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/', 			// redirect to the secure index section
-		failureRedirect: '/signup', 	// redirect back to the signup page if there is an error
-		failureFlash: true 				// allow flash messages
+		successRedirect: '/', 			// 重新定位到主页
+		failureRedirect: '/signup', 	// 重新定位到注册页面
+		failureFlash: true 				// 允许传递信息
 	}));
 
 	// =====================================
@@ -111,13 +111,13 @@ module.exports = function(app, passport) {
 	});
 };
 
-// route middleware to make sure
+// 判断登录中间件
 function isLoggedIn(req, res, next) {
 
-	// if user is authenticated in the session, carry on
+	// 如果通过
 	if (req.isAuthenticated())
 		return next();
 
-	// if they aren't redirect them to the home page
+	// 否则重定位到登录页面
 	res.redirect('/login');
 }
