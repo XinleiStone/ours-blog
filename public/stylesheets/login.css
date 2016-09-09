@@ -132,6 +132,7 @@ a{
 	margin: -100px auto auto;
     border: 1px solid rgb(231, 231, 231); 
     border-image: none; 
+    border-radius: 4px;
     width: 400px; 
     height: 280px; 
     text-align: center;
